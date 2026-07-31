@@ -1,0 +1,56 @@
+-- {{GAME_TITLE}} -- Brainrot/Meme template
+-- Core loop: {{CORE_LOOP}}
+-- STUB TEMPLATE: fast, simple, learnable-in-20-minutes mechanic goes here.
+-- Cultural timing matters more than build complexity for this genre.
+--
+-- Defensive-loading convention (see content_gen/luau_generator.py module docstring and
+-- STUDIO_TESTING_CHECKLIST.md at the project root): an unprotected require() error or an
+-- untimed WaitForChild at the top of a Script silently halts everything after it, with no
+-- obvious signal in Studio's Output panel. Route any sibling ModuleScript this genre ends
+-- up needing through safeRequire(safeWaitForChild(...)) below instead of a bare
+-- require(...:WaitForChild(...)), and keep the pcall + warn()/print() shape in
+-- onPlayerAdded and at script end -- loud failure, loud success, nothing silent.
+
+local Players = game:GetService("Players")
+
+local function safeWaitForChild(parent, childName, timeout)
+	timeout = timeout or 10
+	local child = parent:WaitForChild(childName, timeout)
+	if not child then
+		warn(("%s: WaitForChild timed out waiting for '%s' under %s"):format(script.Name, childName, parent:GetFullName()))
+	end
+	return child
+end
+
+local function safeRequire(moduleScript, label)
+	if not moduleScript then
+		warn(("%s: cannot require '%s' -- module instance missing"):format(script.Name, label))
+		return nil
+	end
+	local ok, result = pcall(require, moduleScript)
+	if not ok then
+		warn(("%s: require('%s') errored: %s"):format(script.Name, label, tostring(result)))
+		return nil
+	end
+	return result
+end
+
+-- TODO: require any sibling ModuleScripts here, e.g.
+--   local SomeService = safeRequire(safeWaitForChild(script.Parent, "SomeService"), "SomeService")
+
+local function onPlayerAdded(player)
+	local ok, err = pcall(function()
+		-- TODO: minimal onboarding, no tutorial friction (genre convention)
+	end)
+	if not ok then
+		warn(("%s: onPlayerAdded failed for %s: %s"):format(script.Name, player.Name, tostring(err)))
+	end
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+
+-- TODO: single core mechanic loop -- keep it to ONE clear verb
+--       (steal / escape / grow / collect -- pick one, don't stack mechanics)
+-- TODO: leaderboard / social-proof element (these games spread via clips)
+
+print(("%s: server script loaded and PlayerAdded wired up."):format(script.Name))

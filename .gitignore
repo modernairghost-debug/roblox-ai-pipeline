@@ -1,0 +1,7 @@
+venv/
+.env
+__pycache__/
+*.pyc
+.rojo_bin/
+output/*/*.rbxlx
+output/*/*.rbxlx.lock

@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "note": "Seed data from manual research, July 2026. The research module should refresh this periodically by pulling from RoMonitor Stats / Rolimon's / Roblox charts, not hand-edit it forever.",
+    "last_updated": "2026-07-30"
+  },
+  "top_games_snapshot": [
+    {"name": "Grow a Garden", "genre": "Simulator/Farming", "why_it_works": "Scarcity + trading economy, low barrier to entry, huge word-of-mouth spike"},
+    {"name": "Steal a Brainrot", "genre": "Brainrot/Meme", "why_it_works": "Rode a meme wave with simple mechanics, ~20 min to learn, outperformed much higher-budget games via cultural timing"},
+    {"name": "Brookhaven RP", "genre": "Roleplay/Social", "why_it_works": "No objectives or tutorial, pure social hangout, sustained by Spatial Voice chat, long sessions (45+ min)"},
+    {"name": "Adopt Me!", "genre": "Roleplay/Simulator", "why_it_works": "Player-to-player value generation via trading and pet economy, long-term LiveOps cadence"},
+    {"name": "Pet Simulator 99", "genre": "Simulator", "why_it_works": "Scarcity + trading + event-based rewards extend player lifetime and revenue"},
+    {"name": "99 Nights in the Forest", "genre": "Horror/Survival", "why_it_works": "Sustained dread over jump scares, real skill gap between players who learn systems vs. react blindly"},
+    {"name": "Blox Fruits", "genre": "RPG/Anime-inspired", "why_it_works": "Grew from a niche anime IP tie-in into a long-running progression RPG"},
+    {"name": "RIVALS", "genre": "Competitive FPS", "why_it_works": "Successfully captured competitive FPS players, historically a hard audience for Roblox to retain"}
+  ],
+  "genre_patterns": {
+    "brainrot_meme": {
+      "growth_shape": "fast spike, short tail unless mechanics get deepened post-launch",
+      "core_loop": "simple, learnable in under 20 minutes, rides an existing meme/cultural reference",
+      "risk": "high volume competition, easy to feel derivative, algorithm buries slow launches"
+    },
+    "simulator": {
+      "growth_shape": "slower build, long tail if economy is right",
+      "core_loop": "collect -> upgrade -> unlock -> repeat, with scarcity and trading layered in",
+      "risk": "needs real economy design (sinks/faucets) or inflation kills it in weeks"
+    },
+    "roleplay_social": {
+      "growth_shape": "slow build, very long tail, session length compounds over time",
+      "core_loop": "no strict objectives, social tools (voice, customization, hangout spaces) matter more than content volume",
+      "risk": "hardest to auto-generate meaningfully; social trust and community moderation matter a lot"
+    },
+    "horror_survival": {
+      "growth_shape": "spike on release if atmosphere lands, decent tail if systems have depth",
+      "core_loop": "escalating difficulty/threat over a bounded run (e.g. survive N nights/days)",
+      "risk": "jump-scare-only design flattens fast; needs a learnable system underneath the scares"
+    }
+  },
+  "cross_cutting_success_factors": [
+    "Player-to-player value generation (trading, gifting, showing off) outperforms pure solo content volume",
+    "LiveOps cadence (regular events/updates) is treated as non-optional by top studios in 2026",
+    "Discovery algorithm rewards retention/session length far more than upload frequency",
+    "Games with genuine systems depth create a skill gap that keeps engaged players around longer"
+  ]
+}

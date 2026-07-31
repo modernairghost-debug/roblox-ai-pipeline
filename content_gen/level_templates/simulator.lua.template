@@ -1,0 +1,76 @@
+-- {{GAME_TITLE}} -- Simulator template
+-- Core loop: {{CORE_LOOP}}
+-- STUB TEMPLATE: fill in real collection zones, currency, and upgrade shop logic
+-- in Roblox Studio. This is a skeleton for AI-assisted variation, not final code.
+--
+-- Defensive-loading convention (see content_gen/luau_generator.py module docstring and
+-- STUDIO_TESTING_CHECKLIST.md at the project root): an unprotected require() error or an
+-- untimed WaitForChild at the top of a Script silently halts everything after it, with no
+-- obvious signal in Studio's Output panel. Route any sibling ModuleScript this genre ends
+-- up needing through safeRequire(safeWaitForChild(...)) below instead of a bare
+-- require(...:WaitForChild(...)), and keep the pcall + warn()/print() shape in
+-- onPlayerAdded/onPlayerRemoving and at script end -- loud failure, loud success, nothing
+-- silent.
+
+local Players = game:GetService("Players")
+local ServerStorage = game:GetService("ServerStorage")
+
+local function safeWaitForChild(parent, childName, timeout)
+	timeout = timeout or 10
+	local child = parent:WaitForChild(childName, timeout)
+	if not child then
+		warn(("%s: WaitForChild timed out waiting for '%s' under %s"):format(script.Name, childName, parent:GetFullName()))
+	end
+	return child
+end
+
+local function safeRequire(moduleScript, label)
+	if not moduleScript then
+		warn(("%s: cannot require '%s' -- module instance missing"):format(script.Name, label))
+		return nil
+	end
+	local ok, result = pcall(require, moduleScript)
+	if not ok then
+		warn(("%s: require('%s') errored: %s"):format(script.Name, label, tostring(result)))
+		return nil
+	end
+	return result
+end
+
+-- TODO: require any sibling ModuleScripts here, e.g.
+--   local SomeService = safeRequire(safeWaitForChild(script.Parent, "SomeService"), "SomeService")
+
+local PlayerData = {}
+
+local function onPlayerAdded(player)
+	local ok, err = pcall(function()
+		PlayerData[player.UserId] = {
+			currency = 0,
+			upgrades = {},
+		}
+		-- TODO: load saved data via DataStoreService
+	end)
+	if not ok then
+		warn(("%s: onPlayerAdded failed for %s: %s"):format(script.Name, player.Name, tostring(err)))
+	end
+end
+
+local function onPlayerRemoving(player)
+	local ok, err = pcall(function()
+		-- TODO: save PlayerData[player.UserId] via DataStoreService
+		PlayerData[player.UserId] = nil
+	end)
+	if not ok then
+		warn(("%s: onPlayerRemoving failed for %s: %s"):format(script.Name, player.Name, tostring(err)))
+	end
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+Players.PlayerRemoving:Connect(onPlayerRemoving)
+
+-- TODO: collection zone logic (touch parts, award currency)
+-- TODO: upgrade shop (spend currency, increase collection rate)
+-- TODO: scarcity/trading system per research notes (this is what separates a
+--       sustainable simulator from a one-week spike)
+
+print(("%s: server script loaded and PlayerAdded/PlayerRemoving wired up."):format(script.Name))
